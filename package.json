@@ -2,6 +2,15 @@
   "name": "dsh-agent-bench",
   "version": "0.1.0",
   "description": "Regression benchmark for DSH agents: replay fixed cases in isolated sandboxes and diff scorecards across model, prompt and DSH versions. DSH Agent 回归基准。",
+  "author": "宋锐 <2047751661@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/songrui111/dsh-agent-bench.git"
+  },
+  "homepage": "https://github.com/songrui111/dsh-agent-bench#readme",
+  "bugs": {
+    "url": "https://github.com/songrui111/dsh-agent-bench/issues"
+  },
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
