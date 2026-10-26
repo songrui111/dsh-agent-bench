@@ -1,0 +1,61 @@
+{
+  "name": "dsh-agent-bench",
+  "version": "0.1.0",
+  "description": "Regression benchmark for DSH agents: replay fixed cases in isolated sandboxes and diff scorecards across model, prompt and DSH versions. DSH Agent 回归基准。",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "benchmarks",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek",
+    "benchmark",
+    "regression",
+    "agent-eval",
+    "evaluation",
+    "testing",
+    "scorecard",
+    "reproducible"
+  ],
+  "engines": {
+    "node": ">=22.19.0",
+    "dsh": ">=0.2.0-rc.2"
+  },
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": "^0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "^3.18.1"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-tools": "0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "3.18.4"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "bench": "node scripts/e2e.mjs",
+    "verify": "node scripts/negative-control.mjs && node scripts/e2e-fresh.mjs"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "fix-off-by-one",
+  "title": "Fix an off-by-one bug in a sum function",
+  "task": "The file sum.js in the current directory has a bug: its loop skips the last element. Fix the bug so that sum([1,2,3]) returns 6 and sum([]) returns 0. Do not change the function name or its signature. Leave the file runnable with node.",
+  "assertions": [
+    { "kind": "file-exists", "path": "sum.js" },
+    { "kind": "file-contains", "path": "sum.js", "value": "module.exports" },
+    { "kind": "command", "run": "node -e \"const s=require('./sum.js');const f=s.sum||s;if(f([1,2,3])!==6)process.exit(1);if(f([])!==0)process.exit(1);process.exit(0)\"", "expectExitCode": 0 }
+  ],
+  "llmReview": {
+    "criteria": "The bug is genuinely fixed (the loop covers the final element), the public interface is unchanged, and no unrelated behaviour was broken.",
+    "minScore": 0.7
+  }
+}

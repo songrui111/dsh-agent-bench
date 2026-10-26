@@ -1,0 +1,6 @@
+node_modules/
+.agent-bench/
+*.tgz
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,19 @@
+{
+  "id": "extract-shared-helper",
+  "title": "Extract a duplicated helper into a shared module",
+  "task": "wrap() is defined identically in both a.js and b.js. Extract it into a new file lib/wrap.js, export it from there, and have a.js and b.js require it instead of each defining their own copy. The program output must stay exactly the same: `node main.js` must still print `a:<x>` then `b:<y>`.",
+  "assertions": [
+    { "kind": "file-exists", "path": "lib/wrap.js" },
+    { "kind": "file-contains", "path": "a.js", "value": "lib/wrap" },
+    { "kind": "file-contains", "path": "b.js", "value": "lib/wrap" },
+    {
+      "kind": "command",
+      "run": "node -e \"const {execFileSync}=require('child_process');const out=execFileSync(process.execPath,['main.js'],{encoding:'utf8'}).trim().split(/\\r?\\n/);if(out[0]!=='a:<x>')process.exit(1);if(out[1]!=='b:<y>')process.exit(2);process.exit(0)\"",
+      "expectExitCode": 0
+    }
+  ],
+  "llmReview": {
+    "criteria": "A single shared lib/wrap.js now holds wrap(), both a.js and b.js import it instead of defining their own copy, and behaviour is unchanged.",
+    "minScore": 0.7
+  }
+}

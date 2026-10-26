@@ -1,0 +1,15 @@
+{
+  "id": "rename-across-files",
+  "title": "Rename an exported symbol across two files",
+  "task": "Rename the exported function oldFormat to format everywhere: in lib/util.js (its definition and export) and in main.js (its import and call). The program must still run: `node main.js` should print [ok] and exit 0. Leave no reference to the old name.",
+  "assertions": [
+    { "kind": "command", "run": "node main.js", "expectExitCode": 0 },
+    { "kind": "file-not-contains", "path": "lib/util.js", "value": "oldFormat" },
+    { "kind": "file-not-contains", "path": "main.js", "value": "oldFormat" },
+    { "kind": "file-contains", "path": "lib/util.js", "value": "function format" }
+  ],
+  "llmReview": {
+    "criteria": "The rename is complete and consistent across both files, and behaviour is unchanged ([ok] printed).",
+    "minScore": 0.7
+  }
+}

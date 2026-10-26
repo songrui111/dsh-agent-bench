@@ -1,0 +1,18 @@
+{
+  "id": "add-edge-case",
+  "title": "Add a test for empty input and make it pass",
+  "task": "slugify(s) in slug.js crashes when s is an empty string. Do two things: (1) add a test to test.js that calls slugify('') and expects an empty string, and (2) fix slugify so that the whole test file passes. slugify('') must return ''. Run `node test.js` to confirm.",
+  "assertions": [
+    { "kind": "command", "run": "node test.js", "expectExitCode": 0 },
+    { "kind": "file-matches", "path": "test.js", "value": "slugify\\(\\s*(''|\"\")\\s*\\)" },
+    {
+      "kind": "command",
+      "run": "node -e \"const s=require('./slug.js');const f=s.slugify||s;if(f('')!=='')process.exit(1);if(f('Hello World')!=='hello-world')process.exit(2);process.exit(0)\"",
+      "expectExitCode": 0
+    }
+  ],
+  "llmReview": {
+    "criteria": "A test asserting slugify('') === '' was added, the empty-input crash is fixed rather than papered over, and existing behaviour (hello-world) is preserved.",
+    "minScore": 0.7
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "implement-per-contract",
+  "title": "Implement a function from its written spec",
+  "task": "SPEC.md describes parseRange(). parse.js exports an unimplemented stub. Implement parseRange exactly as SPEC.md describes, keeping the export name. Do not change SPEC.md. The file must stay runnable with node.",
+  "assertions": [
+    { "kind": "file-contains", "path": "parse.js", "value": "parseRange" },
+    {
+      "kind": "command",
+      "run": "node -e \"const m=require('./parse.js');const f=m.parseRange;const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);if(!eq(f('1-3'),[1,2,3]))process.exit(1);if(!eq(f('5'),[5]))process.exit(2);if(!eq(f('2-4'),[2,3,4]))process.exit(3);let threw=false;try{f('3-1')}catch(e){threw=true}if(!threw)process.exit(4);threw=false;try{f('abc')}catch(e){threw=true}if(!threw)process.exit(5);process.exit(0)\"",
+      "expectExitCode": 0
+    },
+    { "kind": "file-equals-expect", "path": "SPEC.md", "expect": "SPEC.md" }
+  ],
+  "llmReview": {
+    "criteria": "parseRange matches the spec for ranges, single values and both error cases, and SPEC.md is untouched.",
+    "minScore": 0.7
+  }
+}

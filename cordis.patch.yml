@@ -1,0 +1,44 @@
+# dsh-agent-bench bundle patch: mount the benchmark plugin.
+#
+# inject: the plugin registers agent tools and a slash command, so cordis must
+# inject those two services before apply() runs. Without this the host fails
+# the whole entry with:
+#     cannot get property "tools" without inject
+# and the plugin never activates -- the only trace is a startup warning
+# "warning: 1 entry did not activate".
+#
+# Every config key below is a Config field (Schemastery schema); invalid values
+# fail the profile load loudly.
+- insert:
+    - id: dsh-agent-bench
+      name: dsh-agent-bench
+      inject:
+        - tools
+        - commands
+      config:
+        # Directory holding benchmark suites. Each suite is a folder with a
+        # suite.json plus one directory per case. Relative paths resolve
+        # against the workspace root the session runs in.
+        suitesRoot: benchmarks
+        # Where scorecards are written. One JSON per run plus a rolling
+        # index.json used by the regression diff.
+        scorecardRoot: .agent-bench
+        # Sandbox root: every case runs in a freshly copied workspace here so
+        # a run never touches the user's real files.
+        sandboxRoot: .agent-bench/sandboxes
+        # Hard ceiling for one case, milliseconds. A case that exceeds it is
+        # killed and scored as failed with reason "timeout".
+        caseTimeoutMs: 300000
+        # Keep the sandbox of a finished case on disk for inspection.
+        keepSandboxes: false
+        # Deterministic assertions always run. LLM review is opt-in per case
+        # (a case declares an `llmReview` block) because it burns tokens and
+        # introduces review drift between versions.
+        llmReviewEnabled: true
+        # Bytes cap for one captured artifact handed to an assertion or to
+        # the reviewer, so a runaway log cannot blow up the scorecard.
+        maxArtifactBytes: 262144
+        # Language of everything the user reads: run summary, history list and
+        # the .md report. zh (default) or en. Tool descriptions stay English
+        # because the model reads those, not the user.
+        language: zh
