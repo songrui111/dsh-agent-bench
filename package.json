@@ -59,8 +59,8 @@
   },
   "scripts": {
     "test": "node --test test/*.test.js",
-    "bench": "node scripts/e2e.mjs",
-    "verify": "node scripts/negative-control.mjs && node scripts/e2e-fresh.mjs"
+    "bench": "node scripts/run-suite.mjs",
+    "verify": "node scripts/negative-control.mjs && node scripts/vacuity-check.mjs"
   },
   "publishConfig": {
     "access": "public",
