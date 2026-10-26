@@ -14,6 +14,10 @@ dsh plugin --profile web add dsh-agent-bench
 `DEEPSEEK_API_KEY`）。装完在工作区里让我调用 `bench_suites` 就能用，首次运行会自动
 准备一套隔离环境，不用手工配路径。
 
+命令行安装需要本机 PATH 上有 `pnpm`（`dsh plugin` 内部会调用它）。桌面版的 pnpm
+打包在运行时目录里、没加进 PATH，所以从开始菜单启动的用户如果只用命令行装，可能
+要先自己装一个 pnpm；通过插件市场安装则不受影响，市场自己会处理。
+
 ## 它测什么
 
 一条用例 = 一份起始文件 + 一句任务 + 一组判分规则。比如内置的这条：
